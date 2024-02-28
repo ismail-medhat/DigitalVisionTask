@@ -3,22 +3,17 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: Colors.primary,
-  },
-  innerContainer: {
-    flex: 1,
+    width: '90%',
+    height: 50,
+    borderRadius: 10,
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  headerTxt: {
+  btnTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     color: Colors.primary,
-  },
-  btnStyle: {
-    position: 'absolute',
-    bottom: 50,
   },
 });
 

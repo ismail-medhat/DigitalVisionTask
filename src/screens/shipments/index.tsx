@@ -1,14 +1,26 @@
-import {Text, View} from 'react-native';
+import {SafeAreaView, Text, View} from 'react-native';
 import React from 'react';
 import styles from './styles';
+import MainHeader from '@components/mainHeader';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {ParamListBase} from '@react-navigation/native';
+import screenNames from '@navigation/screenNames';
 
-const ShipmentsScreen = () => {
+interface ShipmentProps {
+  navigation: StackNavigationProp<ParamListBase>;
+}
+
+const ShipmentsScreen: React.FC<ShipmentProps> = ({navigation}) => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <MainHeader
+        onProfilePress={() => navigation.navigate(screenNames.Profile)}
+      />
       <View style={styles.innerContainer}>
-        <Text style={styles.headerTxt}>{'ShipmentsScreen'}</Text>
+        <Text>{'hello'}</Text>
+        <Text style={styles.headerTxt}>{'Ibrahim Shaker'}</Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

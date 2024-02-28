@@ -4,7 +4,6 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import ScreenNames from './screenNames';
 import {StyleSheet, View, Text, Platform} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
 import {ParamListBase} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ScaleHeight, ScaleWidth} from '@common/fitSize';
@@ -13,6 +12,14 @@ import ShipmentsScreen from '@screens/shipments';
 import ScanScreen from '@screens/scan';
 import WalletScreen from '@screens/wallet';
 import ProfileScreen from '@screens/profile';
+import SvgActiveShipment from '@assets/svgs/SvgActiveShipment';
+import SvgInActiveShipment from '@assets/svgs/SvgInActiveShipment';
+import SvgActiveScan from '@assets/svgs/SvgActiveScan';
+import SvgInActiveScan from '@assets/svgs/SvgInActiveScan';
+import SvgActiveWallet from '@assets/svgs/SvgActiveWallet';
+import SvgInActiveWallet from '@assets/svgs/SvgInActiveWallet';
+import SvgActiveProfile from '@assets/svgs/SvgActiveProfile';
+import SvgInActiveProfile from '@assets/svgs/SvgInActiveProfile';
 
 const Tab = createBottomTabNavigator();
 
@@ -31,7 +38,10 @@ const BottomTabNavigator: React.FC<ISBottomTabsProps> = ({navigation}) => {
               <Text
                 style={[
                   styles.tabBarName,
-                  {color: focused ? Colors.black : Colors.gray},
+                  {
+                    color: focused ? Colors.primaryTxt : Colors.grayIcon,
+                    fontWeight: focused ? '500' : 'normal',
+                  },
                 ]}>
                 {route.name}
               </Text>
@@ -39,29 +49,18 @@ const BottomTabNavigator: React.FC<ISBottomTabsProps> = ({navigation}) => {
           );
         },
         tabBarIcon: ({focused}) => {
-          let IconName: string = '';
           if (route.name === ScreenNames.Shipments) {
-            IconName = focused ? 'heart' : 'heart-outline';
+            return focused ? <SvgActiveShipment /> : <SvgInActiveShipment />;
           } else if (route.name === ScreenNames.Scan) {
-            IconName = focused ? 'person' : 'person-outline';
+            return focused ? <SvgActiveScan /> : <SvgInActiveScan />;
           } else if (route.name === ScreenNames.Wallet) {
-            IconName = focused ? 'person' : 'person-outline';
+            return focused ? <SvgActiveWallet /> : <SvgInActiveWallet />;
           } else if (route.name === ScreenNames.Profile) {
-            IconName = focused ? 'person' : 'person-outline';
+            return focused ? <SvgActiveProfile /> : <SvgInActiveProfile />;
           }
-          return <Icon name={IconName} size={22} />;
         },
         headerShown: false,
-        tabBarStyle: [
-          styles.tapStyles,
-          {
-            backgroundColor: Colors.white,
-            borderTopWidth: 0,
-            borderWidth: 0,
-            borderTopLeftRadius: 15,
-            borderTopRightRadius: 15,
-          },
-        ],
+        tabBarStyle: styles.tapStyles,
         tabBarLabelStyle: styles.tabBarLabelStyle,
       })}>
       <Tab.Screen name={ScreenNames.Shipments} component={ShipmentsScreen} />
@@ -78,19 +77,24 @@ const styles = StyleSheet.create({
   tapStyles: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: ScaleHeight(80),
+    height: ScaleHeight(85),
     width: ScaleWidth('100%'),
-    borderWidth: 1,
+    backgroundColor: Colors.white,
+    borderTopWidth: 1.8,
+    borderTopColor: Colors.placeholderColor,
+    borderWidth: 0,
+    paddingTop: 8,
+    paddingHorizontal: 10,
   },
   tabBarItemStyle: {
     top: 15,
-    height: 45,
+    height: 50,
   },
   tabBarLabelStyle: {
     bottom: 10,
   },
   tabBarName: {
-    fontSize: 12,
+    fontSize: 14,
     paddingTop: Platform.OS === 'ios' ? ScaleHeight(2) : 0,
     marginBottom: Platform.OS === 'android' ? ScaleHeight(14) : 0,
   },

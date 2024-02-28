@@ -1,4 +1,5 @@
 import Colors from '@common/colors';
+import {ScaleHeight, ScaleWidth} from '@common/fitSize';
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
@@ -7,9 +8,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   innerContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingVertical: ScaleHeight(10),
+    marginHorizontal: ScaleWidth('5%'),
   },
   headerTxt: {
     fontSize: 18,
