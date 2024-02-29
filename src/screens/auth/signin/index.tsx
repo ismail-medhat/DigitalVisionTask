@@ -6,24 +6,28 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {ParamListBase} from '@react-navigation/native';
 import screenNames from '@navigation/screenNames';
 import Button from '@components/button';
+import Animated, {FadeIn} from 'react-native-reanimated';
+import LoginBottomSheet from './loginBottomSheet';
 
 type SigninScreenProps = {
   navigation: StackNavigationProp<ParamListBase>;
 };
 
 const SigninScreen: React.FC<SigninScreenProps> = ({navigation}) => {
+  const [openSheet, setOpenSheet] = React.useState<boolean>(false);
   return (
-    <View style={styles.container}>
+    <Animated.View entering={FadeIn.duration(1000)} style={styles.container}>
       <StatusBar barStyle={'light-content'} />
       <View style={styles.innerContainer}>
         <SvgWhiteAppLogo />
         <Button
           title={'Login'}
-          onPress={() => navigation.navigate(screenNames.BottomTabs)}
+          onPress={() => setOpenSheet(true)}
           btnStyle={styles.btnStyle}
         />
       </View>
-    </View>
+      <LoginBottomSheet isOpen={openSheet} setIsOpen={setOpenSheet} />
+    </Animated.View>
   );
 };
 

@@ -10,6 +10,7 @@ const Colors = {
   lightGray: '#EEE',
   green: '#48B02C',
   red: '#EB4335',
+  blueTxt: '#4561DB',
 };
 
 export default Colors;
