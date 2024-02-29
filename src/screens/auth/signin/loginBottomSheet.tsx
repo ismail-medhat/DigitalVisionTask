@@ -26,6 +26,7 @@ import {RootState} from '@store/index';
 import {loginAsync} from '@store/slices/authSlice';
 import {useNavigation} from '@react-navigation/native';
 import screenNames from '@navigation/screenNames';
+import { isIos } from '@utils/generalFunc';
 
 type LoginBottomSheetProps = {
   isOpen: boolean;
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
   sheetView: {
     flex: 1,
     backgroundColor: Colors.black,
-    paddingTop: ScaleHeight(55),
+    paddingTop: isIos() ?  ScaleHeight(55) :  ScaleHeight(25),
   },
   topBannerView: {
     width: ScaleWidth('90%'),
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary,
     alignSelf: 'center',
     position: 'absolute',
-    top: ScaleHeight(48),
+    top:isIos() ?  ScaleHeight(48):ScaleHeight(18),
   },
   topDragView: {
     width: ScaleWidth('13%'),
