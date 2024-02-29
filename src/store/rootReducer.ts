@@ -1,9 +1,9 @@
 // rootReducer.ts
 
 import {combineReducers} from '@reduxjs/toolkit';
-import contactSlice from './slices/contactSlice';
+import authSlice from './slices/authSlice';
 const rootReducer = combineReducers({
-  contact: contactSlice,
+  auth: authSlice,
   // Add more slices here if you have multiple slices in your app
 });
 

@@ -9,10 +9,10 @@ type InputProps = {
   value: string;
   onChangeText: (text: string) => void;
   withRightIcon?: boolean;
-  rightIcon?: string;
+  rightIcon?: JSX.Element;
   onRightIconPress?: () => void;
   secureTextEntry?: boolean;
-  isHaveError?: boolean;
+  isHaveError?: string | boolean;
   errorTxt?: string;
   inputStyle?: ViewStyle;
   iconSize?: number;
@@ -26,7 +26,7 @@ const Input: React.FC<InputProps> = ({
   value,
   onChangeText = text => {},
   withRightIcon = false,
-  rightIcon = 'eye',
+  rightIcon,
   onRightIconPress = () => {},
   secureTextEntry = false,
   isHaveError = false,
@@ -66,20 +66,9 @@ const Input: React.FC<InputProps> = ({
           },
         ]}
         activeUnderlineColor={Colors.gray}
-        selectionColor={`${Colors.primary}50`}
+        selectionColor={Colors.primary}
         placeholderTextColor={Colors.gray}
-        right={
-          withRightIcon ? (
-            <TextInput.Icon
-              icon={rightIcon}
-              onPress={onRightIconPress}
-              forceTextInputFocus={false}
-              size={iconSize}
-              color={iconColor}
-            />
-          ) : // rightIcon
-          undefined
-        }
+        right={withRightIcon ? withRightIcon : undefined}
         secureTextEntry={secureTextEntry}
         onFocus={onFocus}
         onBlur={onBlure}
