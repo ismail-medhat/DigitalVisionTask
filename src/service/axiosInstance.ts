@@ -32,7 +32,7 @@ const Axios = async ({
   params,
   pathParams = '',
   header,
-  isFormDate = true,
+  isFormDate = false,
 }: {
   method: Method;
   path: keyof apisTypes;

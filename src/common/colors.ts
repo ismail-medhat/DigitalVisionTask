@@ -12,6 +12,9 @@ const Colors = {
   green: '#48B02C',
   red: '#EB4335',
   blueTxt: '#4561DB',
+  LightBlack: '#3F395C',
+  MediumGray: '#A7A3B3',
+  BorderGray: '#D0D5DD',
 };
 
 export default Colors;

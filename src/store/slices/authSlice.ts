@@ -22,6 +22,7 @@ export const loginAsync = createAsyncThunk<User, {usr: string; pwd: string}>(
         method: 'POST',
         path: 'login',
         data: credentials,
+        isFormDate: true,
       });
       console.log('login Data:: ', res?.data);
       return res.data;
