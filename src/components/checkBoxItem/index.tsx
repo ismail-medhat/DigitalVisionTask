@@ -39,7 +39,7 @@ const CheckBoxItem = ({
   destination,
   checked,
   status = '',
-  senderPhone = '+2001005042565',
+  senderPhone,
   onChange,
 }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -56,14 +56,16 @@ const CheckBoxItem = ({
   };
 
   const openDialer = () => {
-    const dialerUrl = `tel:${senderPhone}`;
+    const phone = senderPhone ?? '+2001005042565';
+    const dialerUrl = `tel:${phone}`;
     Linking.openURL(dialerUrl).catch(err =>
       console.error('Error opening dialer:', err),
     );
   };
 
   const openWhatsApp = () => {
-    const whatsappUrl = `whatsapp://send?phone=${senderPhone}`;
+    const phone = senderPhone ?? '+2001005042565';
+    const whatsappUrl = `whatsapp://send?phone=${phone}`;
     Linking.openURL(whatsappUrl).catch(err =>
       console.error('Error opening WhatsApp:', err),
     );

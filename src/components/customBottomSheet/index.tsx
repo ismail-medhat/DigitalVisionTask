@@ -18,7 +18,7 @@ const CustomBottomSheet: React.FC<CustomBottomSheetProps> = ({
   isOpen,
   onClose,
   children,
-  height = ScaleHeight('40%'),
+  height = ScaleHeight('45%'),
   containerStyle,
   dragFromTopOnly = false,
 }) => {
