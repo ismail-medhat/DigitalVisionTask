@@ -19,7 +19,10 @@ const ButtonWithIcon: React.FC<CustomButtonWithIconProps> = ({
   btnTitleStyle,
 }) => {
   return (
-    <TouchableOpacity style={[styles.container, btnStyle]} onPress={onPress}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      style={[styles.container, btnStyle]}
+      onPress={onPress}>
       {icon}
       <Text style={[styles.btnTitle, btnTitleStyle]}>{text}</Text>
     </TouchableOpacity>

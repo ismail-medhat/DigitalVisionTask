@@ -18,7 +18,7 @@ const CustomBottomSheet: React.FC<CustomBottomSheetProps> = ({
   isOpen,
   onClose,
   children,
-  height = 600,
+  height = ScaleHeight('40%'),
   containerStyle,
   dragFromTopOnly = false,
 }) => {
@@ -46,10 +46,10 @@ const CustomBottomSheet: React.FC<CustomBottomSheetProps> = ({
           borderTopRightRadius: ScaleHeight(10),
         },
         draggableIcon: {
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.MediumGray,
         },
       }}>
-      <View style={[styles.sheetView, containerStyle]}>{children}</View>
+      <View style={[containerStyle]}>{children}</View>
     </BottomSheet>
   );
 };

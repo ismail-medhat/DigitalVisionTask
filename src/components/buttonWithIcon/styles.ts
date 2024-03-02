@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   },
   btnTitle: {
     fontSize: 16,
-    // fontWeight: 'bold',
+    fontWeight: '500',
     color: Colors.MediumGray,
     paddingLeft: 10,
   },

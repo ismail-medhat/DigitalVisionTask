@@ -1,107 +1,158 @@
-import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import React, {useRef, useState} from 'react';
+import {
+  Animated,
+  LayoutAnimation,
+  Linking,
+  Platform,
+  Text,
+  TouchableOpacity,
+  UIManager,
+  View,
+} from 'react-native';
 import CheckBox from '@components/checkBox';
 import Colors from '@common/colors';
 import SvgBoxes from '@assets/svgs/SvgBoxes';
-import {ScaleHeight, ScaleWidth} from '@common/fitSize';
 import Icon from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import styles from './styles';
 
 type Props = {
   title: string;
-  dataNumber: number;
+  dataNumber: number | string;
   status?: string;
-  fromCountry: string;
-  toCountry: string;
-  //   icon: JSX.Element;
+  origin: string;
+  originZone: string;
+  destination: string;
+  destinationZone: string;
   checked: number | boolean;
+  senderPhone: number | string | null;
   onChange: () => {};
 };
 
 const CheckBoxItem = ({
   title,
   dataNumber,
-  fromCountry,
-  toCountry,
+  origin,
+  originZone,
+  destinationZone,
+  destination,
   checked,
+  status = '',
+  senderPhone = '+2001005042565',
   onChange,
 }: Props) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  if (Platform.OS === 'android') {
+    if (UIManager.setLayoutAnimationEnabledExperimental) {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+  }
+
+  const taggleView = () => {
+    LayoutAnimation.easeInEaseOut();
+    setIsOpen(!isOpen);
+  };
+
+  const openDialer = () => {
+    const dialerUrl = `tel:${senderPhone}`;
+    Linking.openURL(dialerUrl).catch(err =>
+      console.error('Error opening dialer:', err),
+    );
+  };
+
+  const openWhatsApp = () => {
+    const whatsappUrl = `whatsapp://send?phone=${senderPhone}`;
+    Linking.openURL(whatsappUrl).catch(err =>
+      console.error('Error opening WhatsApp:', err),
+    );
+  };
   return (
     <View
-      style={{
-        backgroundColor: Colors.lightGray,
-        borderRadius: 10,
-        paddingHorizontal: 6,
-        marginBottom: 20,
-        flexDirection: 'row',
-        paddingVertical: ScaleHeight(10),
-        marginHorizontal: ScaleWidth('5%'),
-        gap: 7,
-      }}>
-      {/* Left side*/}
-      <View style={{justifyContent: 'center'}}>
+      style={[
+        styles.shipmentContainer,
+        {borderWidth: checked ? 1.5 : 0, borderColor: '#6E91EC'},
+      ]}>
+      <View style={[styles.rowBetween, {padding: 12}]}>
         <CheckBox checked={checked} onChange={onChange} />
-        {/* {CheckElement} */}
-      </View>
-
-      {/* Right side*/}
-      <View style={{justifyContent: 'center'}}>
         <SvgBoxes />
-      </View>
-      <View style={{flexDirection: 'column'}}>
-        <Text
-          style={{
-            color: Colors.LightBlack,
-            fontSize: 15,
-            fontWeight: '500',
-          }}>
-          {title}
-          {/* AWB */}
-        </Text>
-        <Text
-          style={{color: Colors.LightBlack, fontSize: 17, fontWeight: '800'}}>
-          {dataNumber}
-          {/* 41785691423 */}
-        </Text>
-        <View style={{flexDirection: 'row', alignItems: 'center', gap: 2}}>
+        <View style={{flexDirection: 'column'}}>
+          <Text style={styles.titletxt}>{title}</Text>
           <Text
-            style={{color: Colors.MediumGray, fontSize: 14, fontWeight: '400'}}>
-            {fromCountry}
-            {/* Cairo */}
+            style={{color: Colors.LightBlack, fontSize: 18, fontWeight: '700'}}>
+            {dataNumber}
           </Text>
-          <Icon name="arrowright" size={20} color={Colors.primary} />
-          <Text
-            style={{color: Colors.MediumGray, fontSize: 14, fontWeight: '400'}}>
-            {/* Alexandria */}
-            {toCountry}
+          <View style={styles.rowStart}>
+            <Text style={styles.areaTxt}>{origin}</Text>
+            <Icon
+              style={{paddingHorizontal: 3}}
+              name="arrowright"
+              size={20}
+              color={Colors.primary}
+            />
+            <Text style={styles.areaTxt}>{destination}</Text>
+          </View>
+        </View>
+        <View style={styles.statusBox}>
+          <Text style={styles.statusTxt}>
+            {status?.includes('New') ? 'RECEIVED' : status}
           </Text>
         </View>
+        <TouchableOpacity onPress={taggleView} activeOpacity={0.8}>
+          <View
+            style={[
+              styles.extendBox,
+              {backgroundColor: isOpen ? Colors.blueTxt : Colors.white},
+            ]}>
+            <Icon
+              name="arrowsalt"
+              size={16}
+              color={isOpen ? Colors.white : Colors.blueTxt}
+            />
+          </View>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity style={{justifyContent: 'center'}}>
-        <View
-          style={{
-            paddingVertical: 4,
-            paddingHorizontal: 5,
-            backgroundColor: Colors.lightGray,
-            borderColor: Colors.white,
-            borderWidth: 1,
-            borderRadius: 7,
-          }}>
-          <Text style={{color: Colors.MediumGray, fontSize: 12}}>CANCELED</Text>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity style={{justifyContent: 'center'}}>
-        <View
-          style={{
-            padding: 3,
-            backgroundColor: Colors.white,
-            borderColor: Colors.white,
-            borderWidth: 1,
-            borderRadius: 20,
-          }}>
-          {/* <Text style={{color: Colors.MediumGray, fontSize: 12}}>CANCELED</Text> */}
-          <Icon name="arrowsalt" size={20} color={Colors.blueTxt} />
-        </View>
-      </TouchableOpacity>
+      {isOpen && (
+        <Animated.View>
+          <View style={styles.dashLine} />
+          <View style={styles.extenCard}>
+            <View style={styles.rowBetween}>
+              <View style={{flexDirection: 'column'}}>
+                <Text style={styles.originTitle}>{'Origin'}</Text>
+                <Text style={styles.originTxt}>{origin}</Text>
+                <Text style={styles.originZone}>{originZone}</Text>
+              </View>
+              <Icon name="arrowright" size={25} color={Colors.primary} />
+              <View style={{flexDirection: 'column'}}>
+                <Text style={styles.originTitle}>{'Destination'}</Text>
+                <Text style={styles.originTxt}>{destination}</Text>
+                <Text style={styles.originZone}>{destinationZone}</Text>
+              </View>
+            </View>
+            <View style={[styles.rowEnd, {marginTop: 10}]}>
+              <TouchableOpacity
+                onPress={openDialer}
+                style={styles.callBtn}
+                activeOpacity={0.8}>
+                <View style={styles.rowCenter}>
+                  <Ionicons name="call" size={22} color={Colors.white} />
+                  <Text style={styles.btnTxt}>{'Call'}</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={openWhatsApp}
+                style={styles.whatsappBtn}
+                activeOpacity={0.8}>
+                <View style={styles.rowCenter}>
+                  <FontAwesome name="whatsapp" size={22} color={Colors.white} />
+                  <Text style={styles.btnTxt}>{'WhatsApp'}</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Animated.View>
+      )}
     </View>
   );
 };

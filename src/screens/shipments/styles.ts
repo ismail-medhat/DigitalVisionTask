@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     paddingTop: ScaleHeight(12),
   },
   innerContainer: {
-    paddingVertical: ScaleHeight(7),
+    paddingVertical: ScaleHeight(5),
     marginHorizontal: ScaleWidth('5%'),
   },
   headerTxt: {
@@ -32,9 +32,50 @@ const styles = StyleSheet.create({
   },
   endItem: {
     color: Colors.primary,
-    // fontWeight: '700',
     fontSize: 20,
   },
+  rowBetween: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingBottom: 10,
+  },
+  addScanTxt: {backgroundColor: Colors.primary, width: ScaleWidth('43%')},
+  filterTxt: {
+    backgroundColor: Colors.placeholderColor,
+    width: ScaleWidth('43%'),
+  },
+  cancelTxt: {fontSize: 18, color: Colors.blueTxt},
+  modelTitle: {fontSize: 18, fontWeight: 'bold', color: Colors.black},
+  statusListRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
+  },
+  statusBox: {
+    marginEnd: 15,
+    height: 40,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    backgroundColor: Colors.placeholderColor,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 15,
+  },
+  modelSubtitle: {
+    fontSize: 16,
+    textTransform: 'uppercase',
+    color: '#58536E',
+    marginBottom: 15,
+    marginTop: 5,
+  },
+  statusTxt: {fontSize: 14, color: '#58536E', fontWeight: '500'},
+  modelSeperateLine: {
+    width: '100%',
+    height: 2,
+    backgroundColor: Colors.placeholderColor,
+  },
+  modelHeaderPadding: {padding: 15, paddingBottom: 15, paddingTop: 10},
 });
 
 export default styles;

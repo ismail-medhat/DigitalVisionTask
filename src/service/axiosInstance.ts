@@ -48,7 +48,10 @@ const Axios = async ({
     ? {
         Authorization: `Bearer ${accessToken}`,
       }
-    : {};
+    : {
+        Cookie:
+          'full_name=Tasty%20Test; sid=72eff42e7f78651938a1a6b048ffa0a0f989dbea56b7e4b5696a0afa; system_user=yes; user_id=test%40brandimic.com; user_image=',
+      };
 
   const response = await axiosInstance({
     method: method,

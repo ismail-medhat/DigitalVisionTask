@@ -1,11 +1,12 @@
 import React from 'react';
-import {ScrollView, View} from 'react-native';
+import {FlatList, View} from 'react-native';
 import CheckBoxItem from '@components/checkBoxItem';
+import styles from './styles';
 
 type CheckBoxItemDataProps = {
   shipmentList: any;
   selectedItems: [];
-  handleItemSelect: (id: number) => any;
+  handleItemSelect: (id: string) => any;
 };
 
 const CheckBoxItemData: React.FC<CheckBoxItemDataProps> = ({
@@ -14,25 +15,30 @@ const CheckBoxItemData: React.FC<CheckBoxItemDataProps> = ({
   handleItemSelect,
 }) => {
   return (
-    <View style={{backgroundColor: 'white'}}>
-      <View>
-        <ScrollView>
-          <View style={{marginTop: 20, marginBottom: 50}}>
-            {shipmentList.map((user: any) => (
-              <View key={user.id}>
-                <CheckBoxItem
-                  title={user.title}
-                  dataNumber={user.dataNumber}
-                  fromCountry={user.fromCountry}
-                  toCountry={user.toCountry}
-                  checked={selectedItems.includes(user.id)}
-                  onChange={() => handleItemSelect(user.id)}
-                />
-              </View>
-            ))}
+    <View style={styles.container}>
+      <FlatList
+        data={shipmentList}
+        keyExtractor={shipment => shipment.name}
+        renderItem={({item}) => (
+          <View key={item.name}>
+            <CheckBoxItem
+              title={'AWS'}
+              dataNumber={item?.name}
+              origin={item?.destination_city}
+              originZone={item?.origin_zone}
+              destination={item?.origin_city}
+              destinationZone={item?.destination_zone}
+              status={item?.status}
+              senderPhone={item?.sender_phone}
+              checked={selectedItems.includes(item?.name)}
+              onChange={() => handleItemSelect(item?.name)}
+            />
           </View>
-        </ScrollView>
-      </View>
+        )}
+        showsVerticalScrollIndicator={false}
+        ListFooterComponent={<View />}
+        ListFooterComponentStyle={styles.listFooterStyle}
+      />
     </View>
   );
 };
